@@ -7,7 +7,11 @@ export default function getGifs({ keyword = 'morty' } = {}) {
     .then((res) => res.json())
     .then(({ data }) => {
       if (Array.isArray(data)) {
-        const gifs = data.map((image) => image.images.downsized_medium.url)
+        const gifs = data.map((image) => {
+          const { images, title, id } = image
+          const { url } = images.downsized_medium
+          return { url, title, id }
+        })
         return gifs
       }
     })

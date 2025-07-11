@@ -11,8 +11,9 @@
   justify-content: center;
   color: white;
   font-size: calc(10px + 2vmin);
+  padding: 16px;
 }
 
 button {
-  button: 48px;
+  font-size: 48px;
 }
