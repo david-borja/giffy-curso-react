@@ -5,6 +5,8 @@
   display: flex;
   margin: 16px;
   width: 100%;
+  color: #fff;
+  text-decoration: none;
 }
 
 .Gif h4 {
@@ -13,4 +15,9 @@
 
 .Gif img {
   object-fit: contain;
+}
+
+a {
+  color: #09f;
+  font-size: 32px;
 }
