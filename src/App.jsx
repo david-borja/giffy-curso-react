@@ -1,21 +1,20 @@
-import { useState } from 'react'
 import './App.css'
-import ListOfGifs from './components/ListOfGifs'
+import Home from './pages/Home'
+import SearchResults from './pages/SearchResults'
+import Detail from './pages/Detail'
 
-import { Route, Link } from 'wouter'
+import { Link, Route } from 'wouter'
 
 export default function App() {
-  const [keyword, setKeyword] = useState('peru')
   return (
     <div className='App'>
       <section className='App-content'>
-        <h1>App</h1>
-        <Link to='/gif/panda'>Gif de pandas</Link>
-        <Link to='/gif/ecuador'>Gif de ecuador</Link>
-        <Link to='/gif/chile'>Gif de chile</Link>
-        <Route path='/gif/:keyword' component={ListOfGifs} />
-        <button onClick={() => setKeyword('panda')}>Cambiar keyword</button>
-        <ListOfGifs keyword={keyword} />
+        <Link to='/'>
+          <img className='App-logo' alt='Giffy logo' src='/logo.png' />
+        </Link>
+        <Route component={Home} path='/' />
+        <Route component={SearchResults} path='/search/:keyword' />
+        <Route component={SearchResults} path='/gif/:id' />
       </section>
     </div>
   )
