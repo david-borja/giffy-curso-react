@@ -1,6 +1,5 @@
 import { Link } from 'wouter'
-
-import './Category.css'
+import './styles.css'
 
 export default function Category({ name, options = [] }) {
   return (

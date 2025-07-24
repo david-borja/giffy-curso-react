@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useLocation } from 'wouter'
 import { useGifs } from '../../hooks/useGifs'
 import ListOfGifs from '../../components/ListOfGifs'
+import Category from '../../components/Category'
 
 const POPULAR_GIFS = ['Matrix', 'Chile', 'Colombia', 'Ecuador']
 
