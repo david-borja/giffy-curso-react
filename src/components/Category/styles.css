@@ -5,21 +5,31 @@
 
 .Category-list {
   list-style-position: inside;
-}
-
-.Category-list li::before {
-  color: #8c55a2;
-  content: '--';
-  margin-right: 0.5em;
-  font-size: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .Category-link {
   color: white;
   font-size: 1em;
+  padding: 0.5em;
   transition: color ease-in 0.1s;
 }
 
 .Category-link:hover {
   color: #8c55a2;
+}
+
+@media screen and (min-width: 640px) {
+  .Category-list {
+    display: list-item;
+  }
+
+  .Category-list li::before {
+    color: #8c55a2;
+    content: '--';
+    margin-right: 0.5em;
+    font-size: 1em;
+  }
 }

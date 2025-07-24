@@ -1,9 +1,9 @@
 import { Link } from 'wouter'
 import './styles.css'
 
-export default function Category({ name, options = [] }) {
+export default function Category({ name, options = [], ...props }) {
   return (
-    <div className=''>
+    <div className={props.className}>
       <h3 className='Category-title'>{name}</h3>
       <ul className='Category-list'>
         {options.map((singleOption) => (
