@@ -12,7 +12,9 @@ export default function App() {
       <div className='App'>
         <section className='App-content'>
           <Link to='/'>
-            <img className='App-logo' alt='Giffy logo' src='/logo.png' />
+            <figure className='App-logo'>
+              <img alt='Giffy logo' src='/new-logo.png' />
+            </figure>
           </Link>
           <Route component={Home} path='/' />
           <Route component={SearchResults} path='/search/:keyword' />

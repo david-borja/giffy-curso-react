@@ -3,10 +3,14 @@
 }
 
 .App-logo {
-  object-fit: contain;
-  height: 250px;
-  display: block;
-  margin: 0 auto;
+  margin: 10px auto;
+  padding: 20px 0;
+  width: 144px;
+}
+
+.App-logo img {
+  object-fit: cover;
+  width: 100%;
 }
 
 .App-title {
@@ -26,7 +30,7 @@
 
 .App-main {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   align-items: flex-start;
 }
 
@@ -35,6 +39,7 @@
 }
 
 .App-category {
+  margin-bottom: 25px;
   width: 100%;
 }
 
