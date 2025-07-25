@@ -1,10 +1,9 @@
-import './App.css'
-import Home from './pages/Home'
-import SearchResults from './pages/SearchResults'
-import Detail from './pages/Detail'
-
 import { Link, Route } from 'wouter'
-import { GifsContextProvider } from './context/GifsContext'
+import { GifsContextProvider } from '@/context/GifsContext'
+import Home from '@/pages/Home'
+import SearchResults from '@/pages/SearchResults'
+import Detail from '@/pages/Detail'
+import '@/App.css'
 
 export default function App() {
   return (
