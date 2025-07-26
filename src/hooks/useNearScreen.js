@@ -11,6 +11,7 @@ export function useNearScreen({ distance = '100px' } = {}) {
         const [element] = entries
         if (element.isIntersecting) {
           setIsNearScreen(true)
+          // observer.unobserve(element) // esto es más granular. nos permite dejar de observar un elemento en específico
           observer.disconnect()
         }
       }

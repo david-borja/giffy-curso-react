@@ -1,17 +1,8 @@
-import { useEffect, useState } from 'react'
-import getTrendingSearches from '@/services/getTrendingSearches'
-import Category from '@/components/Category'
+import { lazy, Suspense } from 'react'
 import { useNearScreen } from '@/hooks/useNearScreen'
+import Spinner from '@/components/Spinner'
 
-function TrendingSearches() {
-  const [trends, setTrends] = useState([])
-
-  useEffect(function () {
-    getTrendingSearches().then(setTrends)
-  }, [])
-
-  return <Category name='Tendencias' options={trends} />
-}
+const TrendingSearches = lazy(() => import('./TrendingSearches')) // este import se resuleve con una promesa. Por eso hay que indicarle a react que el import es asíncrono con Suspense
 
 export default function LazyTrending() {
   const { isNearScreen, fromRef } = useNearScreen()
@@ -21,7 +12,9 @@ export default function LazyTrending() {
       // id='LazyTrending'
       ref={fromRef}
     >
-      {isNearScreen && <TrendingSearches />}
+      <Suspense fallback={<Spinner />}>
+        {isNearScreen && <TrendingSearches />}
+      </Suspense>
     </div>
   )
 }
