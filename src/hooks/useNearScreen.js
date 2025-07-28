@@ -1,18 +1,27 @@
 import { useEffect, useRef, useState } from 'react'
 
-export function useNearScreen({ distance = '100px' } = {}) {
+export function useNearScreen({
+  distance = '100px',
+  externalRef,
+  once = true
+} = {}) {
   const [isNearScreen, setIsNearScreen] = useState(false)
-  const elementRef = useRef() // nos permite guardar un valor entre renderizados
+  const fromRef = useRef() // nos permite guardar un valor entre renderizados
 
   useEffect(
     function () {
       let observer
+
+      const element = externalRef ? externalRef.current : fromRef.current
+
       const onChange = (entries, observer) => {
         const [element] = entries
         if (element.isIntersecting) {
           setIsNearScreen(true)
           // observer.unobserve(element) // esto es más granular. nos permite dejar de observar un elemento en específico
-          observer.disconnect()
+          once && observer.disconnect()
+        } else {
+          !once && setIsNearScreen(false)
         }
       }
 
@@ -28,13 +37,13 @@ export function useNearScreen({ distance = '100px' } = {}) {
         })
         // observer.observe(document.getElementById('LazyTrending')) // en react preferimos evitar estas queries al dom. además, lo tiene que recuperar cada vez que se ejecuta el efecto
 
-        observer.observe(elementRef.current)
+        if (element) observer.observe(element)
       })
 
       return () => observer && observer.disconnect()
     },
-    [distance]
+    [distance, externalRef, once]
   )
 
-  return { isNearScreen, fromRef: elementRef }
+  return { isNearScreen, fromRef }
 }
