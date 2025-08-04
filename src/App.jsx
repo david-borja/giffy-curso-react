@@ -1,9 +1,11 @@
+import { lazy, Suspense } from 'react'
 import { Link, Route } from 'wouter'
 import { GifsContextProvider } from '@/context/GifsContext'
-import Home from '@/pages/Home'
-import SearchResults from '@/pages/SearchResults'
-import Detail from '@/pages/Detail'
 import '@/App.css'
+
+const HomePage = lazy(() => import('@/pages/Home'))
+const SearchResultsPage = lazy(() => import('@/pages/SearchResults'))
+const DetailPage = lazy(() => import('@/pages/Detail'))
 
 export default function App() {
   return (
@@ -15,9 +17,11 @@ export default function App() {
               <img alt='Giffy logo' src='/new-logo.png' />
             </figure>
           </Link>
-          <Route component={Home} path='/' />
-          <Route component={SearchResults} path='/search/:keyword' />
-          <Route component={Detail} path='/gif/:id' />
+          <Suspense fallback={null}>
+            <Route component={HomePage} path='/' />
+            <Route component={SearchResultsPage} path='/search/:keyword' />
+            <Route component={DetailPage} path='/gif/:id' />
+          </Suspense>
         </section>
       </div>
     </GifsContextProvider>

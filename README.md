@@ -38,3 +38,5 @@ npm i @testing-library/react happy-dom -D
 Add this below to start the browser:
 "dev": "vite"
 "coverage": "vitest run --coverage"
+
+for the matchers like .toBeInTheDocument() you do need to install @testing-library/jest-dom

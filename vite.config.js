@@ -13,5 +13,10 @@ export default defineConfig({
     alias: {
       '@': resolve(__dirname, './src')
     }
+  },
+  test: {
+    environment: 'happy-dom',
+    setupFiles: ['./vitest.setup.js']
+    // globals: true // lo podemos poner para no importar it, describe, test...
   }
 })
