@@ -1,5 +1,11 @@
-import { it, describe, beforeAll, vi, expect } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { it, describe, beforeAll, vi, expect, afterEach } from 'vitest'
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  cleanup // Creo que esto en jest no hace falta, pero en vitest sí
+} from '@testing-library/react'
 import { MOCK_RESPONSE } from './test.data'
 import App from './App'
 
@@ -11,9 +17,10 @@ beforeAll(() => {
   )
 })
 
-// afterEach(() => {
-//   vi.resetAllMocks()
-// })
+afterEach(() => {
+  // vi.resetAllMocks()
+  cleanup()
+})
 
 describe('Giffy', () => {
   it('Should render App', async () => {
@@ -31,5 +38,15 @@ describe('Giffy', () => {
     })
   })
 
-  it.todo('Should allow search form to be usable', async () => {})
+  it('Should allow search form to be usable', async () => {
+    render(<App />)
+    const input = await screen.findByRole('textbox')
+    fireEvent.change(input, { target: { value: 'Matrix' } })
+
+    const button = await screen.findByRole('button', { name: /buscar/i })
+    fireEvent.click(button)
+
+    const text = await screen.findByText(/matrix/i)
+    expect(text).toBeVisible()
+  })
 })
