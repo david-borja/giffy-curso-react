@@ -40,3 +40,9 @@ Add this below to start the browser:
 "coverage": "vitest run --coverage"
 
 for the matchers like .toBeInTheDocument() you do need to install @testing-library/jest-dom
+
+ABOUT REACT
+
+En su documentación, React comenta que es inteligente y que solo renderiza lo que cambia.
+Esto es cierto solo en parte, porque existen dos renderizados. En el DOM y el el virtual DOM.
+React sí renderiza en el DOM solo lo que cambia, pero muchas veces no evita el cálculo computacional en la parte de react (Virtual DOM)
