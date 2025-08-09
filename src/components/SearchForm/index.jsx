@@ -1,7 +1,6 @@
 import { memo, useState } from 'react'
 
 function SearchForm({ onSubmit }) {
-  console.count('SearchForm component')
   const [keyword, setKeyword] = useState('')
 
   const handleSubmit = (evt) => {
