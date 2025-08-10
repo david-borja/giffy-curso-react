@@ -21,6 +21,7 @@ export default function App() {
             <Route component={HomePage} path='/' />
             <Route component={SearchResultsPage} path='/search/:keyword' />
             <Route component={DetailPage} path='/gif/:id' />
+            <Route component={() => <h1>404 ERROR :(</h1>} path='/404' />
           </Suspense>
         </section>
       </div>
