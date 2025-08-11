@@ -21,6 +21,7 @@ export default function useSingleGif({ id }) {
             setIsError(false)
           })
           .catch((err) => {
+            console.error(err)
             setIsLoading(false)
             setIsError(true)
           })
