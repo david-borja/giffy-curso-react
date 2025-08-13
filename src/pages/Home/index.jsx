@@ -1,9 +1,10 @@
+import { useLocation } from 'wouter'
+import { useCallback } from 'react'
+import { Head } from '@unhead/react'
 import ListOfGifs from '@/components/ListOfGifs'
 import { useGifs } from '@/hooks/useGifs'
 import TrendingSearches from '@/components/TrendingSearches'
 import SearchForm from '@/components/SearchForm'
-import { useLocation } from 'wouter'
-import { useCallback } from 'react'
 
 export default function Home() {
   const [_path, pushLocation] = useLocation()
@@ -24,6 +25,10 @@ export default function Home() {
     <>
       {/* {element} */}
       {/* la simple extracción del componente nos ha permitido bajar en el árbol su estado local 'keyword', y por tanto, evitar que se renderize todo el componente home cuando el usuario teclear */}
+      <Head>
+        <title>Home | Giffy</title>
+        <meta name='description' content='Gif searcher' />
+      </Head>
       <SearchForm onSubmit={handleSubmit} />
       <div className='App-main'>
         <div className='App-results'>
