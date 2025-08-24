@@ -28,6 +28,8 @@ export default function Home() {
       <Head>
         <title>Home | Giffy</title>
         <meta name='description' content='Gif searcher' />
+        {/* si tenemos varios dominios para un mismo proyecto, poner aquí la canónical, para que google sepa que nos referimos a la misma web. Por ejemplo: */}
+        {/* <link rel='canonical' href='https://giffy.com/' /> */}
       </Head>
       <SearchForm onSubmit={handleSubmit} />
       <div className='App-main'>
