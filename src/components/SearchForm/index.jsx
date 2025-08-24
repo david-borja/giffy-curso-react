@@ -1,12 +1,19 @@
 import { memo, useState } from 'react'
+import { useLocation } from 'wouter'
 
-function SearchForm({ onSubmit }) {
+function SearchForm() {
   const [keyword, setKeyword] = useState('')
+  const [_path, pushLocation] = useLocation()
+
+  // para conseguir que el componente SearchForm no se vuelva a renderizar
+  // no obstante, no es el caso de uso de useMemo, ya que se suele utilizar para memorizar el resultado de una función costosa (es decir, un valor). Y aquí se está guardando un componente. Es mejor usar React.memo.
+  // con el useMemo, tendríamos que añadirlo en todos los lugares que queremos usar el componente. Con React.memo, solo lo hacemos una vez en el componente SearchForm y ya está.
+  // const element = useMemo(() => <SearchForm onSubmit={handleSubmit} />, [])
 
   const handleSubmit = (evt) => {
     evt.preventDefault()
     // navegar a otra ruta
-    onSubmit({ keyword })
+    pushLocation(`/search/${keyword}`)
   }
 
   const handleChange = (evt) => {

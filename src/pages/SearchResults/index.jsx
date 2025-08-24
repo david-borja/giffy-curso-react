@@ -5,6 +5,7 @@ import ListOfGifs from '@/components/ListOfGifs'
 import { useGifs } from '@/hooks/useGifs'
 import { useNearScreen } from '@/hooks/useNearScreen'
 import { debounce } from '@/utils/debounce'
+import SearchForm from '@/components/SearchForm'
 
 // OJO: si los componentes se usan más de una vez, no es buena práctica definir variables fuera del componente. Sobre todo funciones.
 
@@ -47,6 +48,7 @@ export default function SearchResults({ params }) {
             <title>{title}</title>
             <meta name='description' content={title}></meta>
           </Head>
+          <SearchForm />
           <h3 className='App-title'>{decodeURI(keyword)}</h3>
           <ListOfGifs gifs={gifs} />
           <div id='visor' ref={externalRef}></div>
