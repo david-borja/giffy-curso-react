@@ -19,7 +19,10 @@ export default function App() {
           </Link>
           <Suspense fallback={null}>
             <Route component={HomePage} path='/' />
-            <Route component={SearchResultsPage} path='/search/:keyword' />
+            <Route
+              component={SearchResultsPage}
+              path='/search/:keyword/:rating?'
+            />
             <Route component={DetailPage} path='/gif/:id' />
             <Route component={() => <h1>404 ERROR :(</h1>} path='/404' />
           </Suspense>

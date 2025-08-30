@@ -10,8 +10,8 @@ import SearchForm from '@/components/SearchForm'
 // OJO: si los componentes se usan más de una vez, no es buena práctica definir variables fuera del componente. Sobre todo funciones.
 
 export default function SearchResults({ params }) {
-  const { keyword } = params
-  const { loading, gifs, setPage } = useGifs({ keyword })
+  const { keyword, rating = 'g' } = params
+  const { loading, gifs, setPage } = useGifs({ keyword, rating })
   const externalRef = useRef()
   const { isNearScreen } = useNearScreen({
     externalRef: loading ? null : externalRef,
@@ -48,7 +48,7 @@ export default function SearchResults({ params }) {
             <title>{title}</title>
             <meta name='description' content={title}></meta>
           </Head>
-          <SearchForm />
+          <SearchForm initialKeyword={keyword} initialRating={rating} />
           <h3 className='App-title'>{decodeURI(keyword)}</h3>
           <ListOfGifs gifs={gifs} />
           <div id='visor' ref={externalRef}></div>
