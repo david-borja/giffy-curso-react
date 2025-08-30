@@ -1,12 +1,24 @@
-import { memo, useState } from 'react'
+import { memo, useState, useReducer } from 'react'
 import { useLocation } from 'wouter'
 
 const RATINGS = ['g', 'pg', 'pg-13', 'r']
 
+const reducer = (state, param) => ({
+  ...state,
+  keyword: param,
+  times: state.times + 1
+})
+
 function SearchForm({ initialRating = RATINGS[0], initialKeyword = '' }) {
-  const [keyword, setKeyword] = useState(decodeURIComponent(initialKeyword))
   const [rating, setRating] = useState(initialRating)
-  const [times, setTimes] = useState(0)
+
+  const [state, dispatch] = useReducer(reducer, {
+    keyword: decodeURIComponent(initialKeyword),
+    times: 0
+  })
+
+  const { keyword, times } = state
+
   const [_path, pushLocation] = useLocation()
 
   // para conseguir que el componente SearchForm no se vuelva a renderizar
@@ -14,6 +26,10 @@ function SearchForm({ initialRating = RATINGS[0], initialKeyword = '' }) {
   // no obstante, no es el caso de uso de useMemo, ya que se suele utilizar para memorizar el resultado de una función costosa (es decir, un valor). Y aquí se está guardando un componente. Es mejor usar React.memo.
   // con el useMemo, tendríamos que añadirlo en todos los lugares que queremos usar el componente. Con React.memo, solo lo hacemos una vez en el componente SearchForm y ya está.
   // const element = useMemo(() => <SearchForm onSubmit={handleSubmit} />, [])
+
+  const updateKeyword = (keyword) => {
+    dispatch(keyword)
+  }
 
   const handleChangeRating = (evt) => {
     setRating(evt.target.value)
@@ -26,8 +42,7 @@ function SearchForm({ initialRating = RATINGS[0], initialKeyword = '' }) {
   }
 
   const handleChange = (evt) => {
-    setKeyword(evt.target.value)
-    setTimes((times) => times + 1)
+    updateKeyword(evt.target.value)
   }
   return (
     <form onSubmit={handleSubmit}>
