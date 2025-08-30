@@ -1,23 +1,36 @@
-import { memo, useState, useReducer } from 'react'
+import { memo, useReducer } from 'react'
 import { useLocation } from 'wouter'
 
 const RATINGS = ['g', 'pg', 'pg-13', 'r']
 
-const reducer = (state, param) => ({
-  ...state,
-  keyword: param,
-  times: state.times + 1
-})
+const ACTIONS = {
+  UPDATE_KEYWORD: 'update_keyword',
+  UPDATE_RATING: 'update_rating'
+}
+
+// el concepto de las action es que sepa qué estado actualizar y cómo actualizarlo
+// el dispatch nos permite actualizar el estado de una manera más declarativa, sin detallar cómo se hace esa actualización
+const reducer = (state, action) => {
+  switch (action.type) {
+    case ACTIONS.UPDATE_KEYWORD:
+      return { ...state, keyword: action.payload, times: state.times + 1 }
+
+    case ACTIONS.UPDATE_RATING:
+      return { ...state, rating: action.payload }
+
+    default:
+      return state
+  }
+}
 
 function SearchForm({ initialRating = RATINGS[0], initialKeyword = '' }) {
-  const [rating, setRating] = useState(initialRating)
-
   const [state, dispatch] = useReducer(reducer, {
     keyword: decodeURIComponent(initialKeyword),
+    rating: initialRating,
     times: 0
   })
 
-  const { keyword, times } = state
+  const { keyword, rating, times } = state
 
   const [_path, pushLocation] = useLocation()
 
@@ -27,12 +40,8 @@ function SearchForm({ initialRating = RATINGS[0], initialKeyword = '' }) {
   // con el useMemo, tendríamos que añadirlo en todos los lugares que queremos usar el componente. Con React.memo, solo lo hacemos una vez en el componente SearchForm y ya está.
   // const element = useMemo(() => <SearchForm onSubmit={handleSubmit} />, [])
 
-  const updateKeyword = (keyword) => {
-    dispatch(keyword)
-  }
-
   const handleChangeRating = (evt) => {
-    setRating(evt.target.value)
+    dispatch({ type: ACTIONS.UPDATE_RATING, payload: evt.target.value })
   }
 
   const handleSubmit = (evt) => {
@@ -42,8 +51,9 @@ function SearchForm({ initialRating = RATINGS[0], initialKeyword = '' }) {
   }
 
   const handleChange = (evt) => {
-    updateKeyword(evt.target.value)
+    dispatch({ type: ACTIONS.UPDATE_KEYWORD, payload: evt.target.value })
   }
+
   return (
     <form onSubmit={handleSubmit}>
       <button>Buscar</button>
