@@ -6,7 +6,7 @@ const RATINGS = ['g', 'pg', 'pg-13', 'r']
 function SearchForm({ initialRating = RATINGS[0], initialKeyword = '' }) {
   const [keyword, setKeyword] = useState(decodeURIComponent(initialKeyword))
   const [rating, setRating] = useState(initialRating)
-
+  const [times, setTimes] = useState(0)
   const [_path, pushLocation] = useLocation()
 
   // para conseguir que el componente SearchForm no se vuelva a renderizar
@@ -27,6 +27,7 @@ function SearchForm({ initialRating = RATINGS[0], initialKeyword = '' }) {
 
   const handleChange = (evt) => {
     setKeyword(evt.target.value)
+    setTimes((times) => times + 1)
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -43,6 +44,7 @@ function SearchForm({ initialRating = RATINGS[0], initialKeyword = '' }) {
           <option key={rating}>{rating}</option>
         ))}
       </select>
+      <small>{times}</small>
     </form>
   )
 }
