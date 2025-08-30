@@ -1,40 +1,17 @@
-import { memo, useReducer } from 'react'
+import { memo } from 'react'
 import { useLocation } from 'wouter'
+import useForm from './hook'
 
 const RATINGS = ['g', 'pg', 'pg-13', 'r']
 
-const ACTIONS = {
-  UPDATE_KEYWORD: 'update_keyword',
-  UPDATE_RATING: 'update_rating'
-}
-
-const ACTION_REDUCERS = {
-  [ACTIONS.UPDATE_KEYWORD]: (state, action) => ({
-    ...state,
-    keyword: action.payload,
-    times: state.times + 1
-  }),
-  [ACTIONS.UPDATE_RATING]: (state, action) => ({
-    ...state,
-    rating: action.payload
-  })
-}
-
 // el concepto de las action es que sepa qué estado actualizar y cómo actualizarlo
 // el dispatch nos permite actualizar el estado de una manera más declarativa, sin detallar cómo se hace esa actualización
-const reducer = (state, action) => {
-  const actionReducer = ACTION_REDUCERS[action.type]
-  return actionReducer ? actionReducer(state, action) : state
-}
 
 function SearchForm({ initialRating = RATINGS[0], initialKeyword = '' }) {
-  const [state, dispatch] = useReducer(reducer, {
-    keyword: decodeURIComponent(initialKeyword),
-    rating: initialRating,
-    times: 0
+  const { keyword, rating, times, updateKeyword, updateRating } = useForm({
+    initialKeyword,
+    initialRating
   })
-
-  const { keyword, rating, times } = state
 
   const [_path, pushLocation] = useLocation()
 
@@ -45,7 +22,7 @@ function SearchForm({ initialRating = RATINGS[0], initialKeyword = '' }) {
   // const element = useMemo(() => <SearchForm onSubmit={handleSubmit} />, [])
 
   const handleChangeRating = (evt) => {
-    dispatch({ type: ACTIONS.UPDATE_RATING, payload: evt.target.value })
+    updateRating(evt.target.value)
   }
 
   const handleSubmit = (evt) => {
@@ -55,7 +32,7 @@ function SearchForm({ initialRating = RATINGS[0], initialKeyword = '' }) {
   }
 
   const handleChange = (evt) => {
-    dispatch({ type: ACTIONS.UPDATE_KEYWORD, payload: evt.target.value })
+    updateKeyword(evt.target.value)
   }
 
   return (
