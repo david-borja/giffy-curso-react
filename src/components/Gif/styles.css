@@ -1,5 +1,13 @@
 .Gif {
   margin-bottom: 0.5em;
+  position: relative;
+}
+
+.Gif-buttons {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
 }
 
 .Gif-link {
