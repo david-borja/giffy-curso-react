@@ -2,12 +2,12 @@ import { jwtVerify } from 'jose'
 import { users } from './users.js'
 
 export const userMiddleware = async (req, res, next) => {
-  let token = req.body.jwt
+  let token = req.body?.jwt
 
   if (!token) {
     token = req.headers.authorization
     if (token && token.startsWith('Bearer ')) {
-      token = token.slice(7)
+      token = token.split(' ')[1]
     }
   }
 
